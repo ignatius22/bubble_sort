@@ -14,5 +14,21 @@ end
 array
 end
 
+def bubble_sort_by(array)
+	i=0
+	n=array.length
+	while i<n-1
+		for j in i..n
+			if yield(array[j],array[j+1]).positive?
+				array[j],array[j+1]=array[j+1],array[j]
+			else
+				j+=1
+			end
+		end
+		i+=1
+	end
+array
+end
+
 a = [1,3,4,1,1,1,1,2,2,3,5,1,6,2,3,4,5]
-p bubble_sort(a)
+p bubble_sort_by(a)
