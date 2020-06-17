@@ -14,21 +14,27 @@ end
 array
 end
 
-def bubble_sort_by(array)
-	i=0
-	n=array.length
-	while i<n-1
-		for j in i..n
-			if yield(array[j],array[j+1]).positive?
-				array[j],array[j+1]=array[j+1],array[j]
-			else
-				j+=1
-			end
-		end
-		i+=1
-	end
-array
+def bubble_sort_by(arr)
+	swapped = true
+	n = arr.length
+  (0...n).each do |i|
+    (0...n - 1).each do |b|
+      next if !(yield arr[b], arr[b + 1]).positive?
+      temp = arr[b]
+      arr[b] = arr[b + 1]
+      arr[b + 1] = temp
+      swapped = false
+    end
+    break if swapped
+  end
+  arr
+end
+
+bubsort_by = bubble_sort_by(["hello", "hey", "hi", "here"]) do |left, right|
+  left.length - right.length
 end
 
 a = [1,3,4,1,1,1,1,2,2,3,5,1,6,2,3,4,5]
-p bubble_sort_by(a)
+p bubsort_by
+  
+p bubble_sort(a)
